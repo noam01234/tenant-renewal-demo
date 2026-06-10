@@ -369,23 +369,30 @@
     </main>
   </div>
 
-        <script>
+          <script>
+    const RENEWAL_SUPABASE_URL = "https://erhfqlcfwjqehffxetbv.supabase.co";
+    const RENEWAL_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyaGZxbGNmd2pxZWhmZnhldGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1OTU4OTAsImV4cCI6MjA5NjE3MTg5MH0.Cq0tiB4NP17E5O_cB4dPNmFk_dl7FYxwQq75p4tlOZc";
+
     const DEMO_RENEWAL_TOKENS = {
       "demo1": {
-        name: "יוסי כהן",
-        end: "31/12/2026",
+        token: "demo1",
+        tenant_name: "יוסי כהן",
+        contract_end_date: "31/12/2026",
         building: "1",
         apartment: "4",
         room: "2"
       },
       "demo2": {
-        name: "נועם יוסף",
-        end: "15/01/2027",
+        token: "demo2",
+        tenant_name: "נועם יוסף",
+        contract_end_date: "15/01/2027",
         building: "17/1",
         apartment: "4",
         room: "2"
       }
     };
+
+    let currentRenewalRecord = null;
 
     function getParam(name, fallback) {
       const params = new URLSearchParams(window.location.search);
@@ -397,11 +404,48 @@
       if (el) el.textContent = value;
     }
 
-    function getRenewalSurveyData() {
+    function normalizeRenewalRecord(record) {
+      return {
+        token: record?.token || "",
+        name: record?.tenant_name || record?.name || "שוכר/ת",
+        end: record?.contract_end_date || record?.end || "לא צוין",
+        building: record?.building || "",
+        apartment: record?.apartment || "",
+        room: record?.room || "",
+        answer: record?.answer || ""
+      };
+    }
+
+    async function fetchRenewalRecordFromSupabase(token) {
+      const url = ${RENEWAL_SUPABASE_URL}/rest/v1/contract_renewal_responses?select=*&token=eq.&limit=1;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "apikey": RENEWAL_SUPABASE_ANON_KEY,
+          "Authorization": Bearer 
+        }
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => "");
+        throw new Error(Supabase read failed:  );
+      }
+
+      const rows = await response.json();
+      return Array.isArray(rows) && rows.length ? rows[0] : null;
+    }
+
+    async function getRenewalSurveyData() {
       const token = getParam("t", "").trim();
 
       if (token && DEMO_RENEWAL_TOKENS[token]) {
-        return Object.assign({ token: token }, DEMO_RENEWAL_TOKENS[token]);
+        return normalizeRenewalRecord(DEMO_RENEWAL_TOKENS[token]);
+      }
+
+      if (token) {
+        const record = await fetchRenewalRecordFromSupabase(token);
+        if (record) return normalizeRenewalRecord(record);
       }
 
       return {
@@ -410,12 +454,13 @@
         end: getParam("end", "לא צוין"),
         building: getParam("building", ""),
         apartment: getParam("apartment", ""),
-        room: getParam("room", "")
+        room: getParam("room", ""),
+        answer: ""
       };
     }
 
-    function initPage() {
-      const data = getRenewalSurveyData();
+    function renderRenewalData(data) {
+      currentRenewalRecord = data;
 
       const unitParts = [];
       if (data.building) unitParts.push("בניין " + data.building);
@@ -425,50 +470,124 @@
       setText("tenantName", data.name || "שוכר/ת");
       setText("contractEnd", data.end || "לא צוין");
       setText("unitInfo", unitParts.length ? unitParts.join(" | ") : "לא צוינה");
+    }
 
-      const logo = document.getElementById("brandLogo");
-      if (logo) {
-        logo.addEventListener("error", function() {
-          logo.classList.add("is-hidden");
-        });
+    function showLoadError(message) {
+      setText("tenantName", "שוכר/ת");
+      setText("contractEnd", "לא צוין");
+      setText("unitInfo", "לא צוינה");
+
+      const resultBox = document.getElementById("resultBox");
+      if (resultBox) {
+        resultBox.className = "result show no-result";
+        resultBox.innerHTML = message || "לא הצלחנו לטעון את פרטי הבקשה.";
       }
     }
 
-    function chooseAnswer(answer) {
+    async function initPage() {
+      try {
+        setText("tenantName", "טוען...");
+        setText("contractEnd", "טוען...");
+        setText("unitInfo", "טוען...");
+
+        const data = await getRenewalSurveyData();
+        renderRenewalData(data);
+
+        const logo = document.getElementById("brandLogo");
+        if (logo) {
+          logo.addEventListener("error", function() {
+            logo.classList.add("is-hidden");
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        showLoadError("לא הצלחנו לטעון את פרטי הבקשה. נא לפנות לנועם.");
+      }
+    }
+
+    function getAnswerLabel(answer) {
+      if (answer === "yes") return "ממשיך/ה";
+      if (answer === "no") return "לא ממשיך/ה";
+      if (answer === "later") return "אחליט בקרוב";
+      return "";
+    }
+
+    async function saveRenewalAnswerToSupabase(answer) {
+      const token = getParam("t", "").trim();
+
+      if (!token || token === "demo1" || token === "demo2") {
+        return;
+      }
+
+      const response = await fetch(${RENEWAL_SUPABASE_URL}/rest/v1/contract_renewal_responses?token=eq., {
+        method: "PATCH",
+        headers: {
+          "apikey": RENEWAL_SUPABASE_ANON_KEY,
+          "Authorization": Bearer ,
+          "Content-Type": "application/json",
+          "Prefer": "return=representation"
+        },
+        body: JSON.stringify({
+          answer: answer,
+          answered_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => "");
+        throw new Error(Supabase answer save failed:  );
+      }
+    }
+
+    async function chooseAnswer(answer) {
       const resultBox = document.getElementById("resultBox");
       const actions = document.getElementById("actions");
 
-      resultBox.className = "result show";
+      if (actions) actions.style.display = "none";
 
-      if (answer === "yes") {
-        resultBox.classList.add("yes-result");
-        resultBox.innerHTML = "תודה רבה!<br>סימנת שברצונך להמשיך לשנה נוספת.";
+      try {
+        await saveRenewalAnswerToSupabase(answer);
+
+        resultBox.className = "result show";
+
+        if (answer === "yes") {
+          resultBox.classList.add("yes-result");
+          resultBox.innerHTML = "תודה רבה!<br>סימנת שברצונך להמשיך לשנה נוספת.";
+        }
+
+        if (answer === "no") {
+          resultBox.classList.add("no-result");
+          resultBox.innerHTML = "תודה רבה על העדכון.<br>סימנת שאינך ממשיך/ה לשנה נוספת.";
+        }
+
+        if (answer === "later") {
+          resultBox.classList.add("later-result");
+          resultBox.innerHTML = "תודה רבה.<br>סימנת שתחליט/י בקרוב.";
+        }
+
+        localStorage.setItem("renewalDemoLastAnswer", JSON.stringify({
+          answer: answer,
+          answerLabel: getAnswerLabel(answer),
+          answeredAt: new Date().toISOString(),
+          pageUrl: window.location.href,
+          token: getParam("t", "")
+        }));
+      } catch (error) {
+        console.error(error);
+
+        resultBox.className = "result show no-result";
+        resultBox.innerHTML = "התשובה לא נשמרה. נא לנסות שוב או לפנות לנועם.";
+
+        if (actions) actions.style.display = "";
       }
-
-      if (answer === "no") {
-        resultBox.classList.add("no-result");
-        resultBox.innerHTML = "תודה רבה על העדכון.<br>סימנת שאינך ממשיך/ה לשנה נוספת.";
-      }
-
-      if (answer === "later") {
-        resultBox.classList.add("later-result");
-        resultBox.innerHTML = "תודה רבה.<br>סימנת שתחליט/י בקרוב.";
-      }
-
-      actions.style.display = "none";
-
-      localStorage.setItem("renewalDemoLastAnswer", JSON.stringify({
-        answer: answer,
-        answeredAt: new Date().toISOString(),
-        pageUrl: window.location.href,
-        token: getParam("t", "")
-      }));
     }
 
     initPage();
   </script>
 </body>
 </html>
+
 
 
 
