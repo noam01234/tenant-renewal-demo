@@ -9,12 +9,15 @@
     :root {
       --blue-dark: #0f3d66;
       --blue: #226ea8;
+      --blue-soft: #eef8ff;
+      --blue-border: #cfe3ef;
       --green: #25D366;
-      --red: #d32f2f;
-      --orange: #f28c28;
-      --bg: #eef8ff;
-      --border: #cfe3ef;
+      --red: #d9534f;
+      --orange: #f0a43a;
       --text: #123;
+      --muted: #5f768c;
+      --bg: #f7fbfe;
+      --white: #ffffff;
     }
 
     * {
@@ -24,114 +27,188 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #eaf7ff, #ffffff);
       color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(34,110,168,0.08), transparent 25%),
+        linear-gradient(180deg, #f3faff 0%, #ffffff 60%);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
+      padding: 20px;
     }
 
-    .card {
-      width: min(560px, 100%);
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      box-shadow: 0 8px 28px rgba(15, 61, 102, 0.14);
+    .page-shell {
+      width: min(760px, 100%);
+      margin: 0 auto;
+    }
+
+    .brand-header {
+      background: linear-gradient(135deg, #0f3d66 0%, #226ea8 100%);
+      color: #fff;
+      border-radius: 24px;
+      box-shadow: 0 16px 32px rgba(15, 61, 102, 0.18);
+      padding: 18px 22px;
+      margin-bottom: 18px;
+      position: relative;
       overflow: hidden;
     }
 
-    .header {
-      background: linear-gradient(135deg, #0f3d66, #226ea8);
-      color: #ffffff;
-      padding: 24px 22px;
+    .brand-header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,0.16), transparent 28%),
+        radial-gradient(circle at 85% 78%, rgba(255,255,255,0.10), transparent 25%);
+      pointer-events: none;
+    }
+
+    .brand-header-inner {
+      position: relative;
+      z-index: 1;
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 130px 10px 130px;
+    }
+
+    .brand-logo-wrap {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .brand-logo {
+      max-width: 100px;
+      max-height: 78px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.18));
+    }
+
+    .brand-logo.is-hidden {
+      display: none;
+    }
+
+    .brand-title {
       text-align: center;
     }
 
-    .header h1 {
+    .brand-title h1 {
       margin: 0;
-      font-size: 28px;
+      font-size: 30px;
+      line-height: 1.2;
+      font-weight: bold;
+      color: #fff;
     }
 
-    .header p {
+    .brand-title p {
       margin: 8px 0 0;
       font-size: 15px;
-      opacity: 0.95;
+      color: rgba(255,255,255,0.94);
     }
 
-    .body {
-      padding: 22px;
+    .survey-card {
+      background: var(--white);
+      border: 1px solid var(--blue-border);
+      border-radius: 22px;
+      box-shadow: 0 8px 24px rgba(15, 61, 102, 0.10);
+      overflow: hidden;
+    }
+
+    .survey-card-body {
+      padding: 24px;
     }
 
     .tenant-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 18px;
-      line-height: 1.8;
+      background: var(--blue-soft);
+      border: 1px solid var(--blue-border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+      line-height: 1.9;
       font-weight: bold;
+    }
+
+    .tenant-box .label {
+      color: var(--muted);
+      font-weight: normal;
+      margin-left: 6px;
     }
 
     .question {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--blue-dark);
-      margin: 0 0 14px;
+      margin: 0 0 10px;
       text-align: center;
+      font-size: 24px;
+      color: var(--blue-dark);
+      font-weight: bold;
     }
 
-    .hint {
-      font-size: 14px;
-      color: #456;
+    .subtitle {
       text-align: center;
-      margin-bottom: 18px;
-      line-height: 1.6;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin: 0 0 20px;
     }
 
     .actions {
       display: grid;
-      gap: 12px;
+      gap: 14px;
     }
 
-    button {
+    .answer-button {
       border: none;
-      border-radius: 14px;
-      padding: 15px 14px;
-      font-size: 18px;
-      font-weight: bold;
+      border-radius: 16px;
+      padding: 16px 18px;
       cursor: pointer;
-      color: #ffffff;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.4;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+      transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
     }
 
-    button:hover {
-      filter: brightness(0.96);
+    .answer-button:hover {
       transform: translateY(-1px);
+      filter: brightness(0.98);
+      box-shadow: 0 7px 16px rgba(0,0,0,0.14);
     }
 
-    .yes {
-      background: var(--green);
+    .answer-button small {
+      display: block;
+      font-size: 13px;
+      font-weight: normal;
+      opacity: 0.95;
+      margin-top: 4px;
     }
 
-    .no {
-      background: var(--red);
+    .answer-yes {
+      background: linear-gradient(135deg, #22b15b, #25D366);
     }
 
-    .later {
-      background: var(--orange);
+    .answer-no {
+      background: linear-gradient(135deg, #cb3d3d, #e05b5b);
+    }
+
+    .answer-later {
+      background: linear-gradient(135deg, #d88a1c, #f0a43a);
     }
 
     .result {
       display: none;
+      margin-top: 20px;
+      border-radius: 18px;
       padding: 18px;
-      border-radius: 16px;
       text-align: center;
-      line-height: 1.7;
+      line-height: 1.8;
+      font-size: 19px;
       font-weight: bold;
-      font-size: 18px;
-      margin-top: 18px;
     }
 
     .result.show {
@@ -139,66 +216,144 @@
     }
 
     .result.yes-result {
-      background: #e8f5e9;
-      color: #1b5e20;
-      border: 1px solid #a5d6a7;
+      background: #e8f7ec;
+      color: #1d6a31;
+      border: 1px solid #a9d7b5;
     }
 
     .result.no-result {
-      background: #ffebee;
-      color: #8b1a1a;
-      border: 1px solid #ef9a9a;
+      background: #fdecec;
+      color: #8d2525;
+      border: 1px solid #efb2b2;
     }
 
     .result.later-result {
-      background: #fff8e1;
-      color: #8a5400;
-      border: 1px solid #f3c37a;
+      background: #fff7e8;
+      color: #8c5a10;
+      border: 1px solid #f0cf95;
     }
 
-    .footer {
-      font-size: 12px;
-      color: #678;
+    .footer-note {
+      border-top: 1px solid #e6f0f6;
+      margin-top: 22px;
+      padding-top: 16px;
       text-align: center;
-      padding: 0 22px 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .project-signature {
+      margin-top: 8px;
+      font-weight: bold;
+      color: var(--blue-dark);
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding: 12px;
+      }
+
+      .brand-header-inner {
+        padding: 6px 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 12px;
+        min-height: auto;
+      }
+
+      .brand-logo-wrap {
+        position: static;
+        transform: none;
+        width: auto;
+        justify-content: center;
+      }
+
+      .brand-logo {
+        max-width: 90px;
+        max-height: 68px;
+      }
+
+      .brand-title h1 {
+        font-size: 26px;
+      }
+
+      .brand-title p {
+        font-size: 14px;
+      }
+
+      .survey-card-body {
+        padding: 18px;
+      }
+
+      .question {
+        font-size: 21px;
+      }
+
+      .answer-button {
+        font-size: 18px;
+        padding: 15px 14px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="card">
-    <section class="header">
-      <h1>סקר חידוש חוזה</h1>
-      <p>אנא בחר/י את האפשרות המתאימה</p>
-    </section>
+  <div class="page-shell">
+    <header class="brand-header">
+      <div class="brand-header-inner">
+        <div class="brand-logo-wrap">
+          <img id="brandLogo" class="brand-logo" src="logo.png" alt="לוגו" />
+        </div>
 
-    <section class="body">
-      <div class="tenant-box">
-        <div>שלום <span id="tenantName">שוכר/ת</span>,</div>
-        <div>החוזה שלך מסתיים בתאריך: <span id="contractEnd">לא צוין</span></div>
-        <div>יחידה: <span id="unitInfo">לא צוינה</span></div>
+        <div class="brand-title">
+          <h1>סקר חידוש חוזה</h1>
+          <p>מערכת לניהול שוכרים - בדיקת חוויית משתמש</p>
+        </div>
       </div>
+    </header>
 
-      <p class="question">האם תרצה/י להמשיך לשנה נוספת?</p>
+    <main class="survey-card">
+      <section class="survey-card-body">
+        <div class="tenant-box">
+          <div><span class="label">שלום</span><span id="tenantName">שוכר/ת</span></div>
+          <div><span class="label">החוזה מסתיים בתאריך:</span><span id="contractEnd">לא צוין</span></div>
+          <div><span class="label">יחידה:</span><span id="unitInfo">לא צוינה</span></div>
+        </div>
 
-      <div class="hint">
-        הבחירה בדוגמה הזו אינה נשלחת עדיין למערכת.  
-        כרגע זה רק דף בדיקה לצד השוכר.
-      </div>
+        <p class="question">האם תרצה/י להמשיך לשנה נוספת?</p>
 
-      <div class="actions" id="actions">
-        <button type="button" class="yes" onclick="chooseAnswer('yes')">✅ ממשיך/ה</button>
-        <button type="button" class="no" onclick="chooseAnswer('no')">❌ לא ממשיך/ה</button>
-        <button type="button" class="later" onclick="chooseAnswer('later')">⏳ אחליט בקרוב</button>
-      </div>
+        <p class="subtitle">
+          נשמח אם תבחר/י את האפשרות המתאימה ביותר עבורך.
+        </p>
 
-      <div id="resultBox" class="result"></div>
-    </section>
+        <div class="actions" id="actions">
+          <button type="button" class="answer-button answer-yes" onclick="chooseAnswer('yes')">
+            ✅ ממשיך/ה
+            <small>מעוניין/ת להמשיך לשנה נוספת</small>
+          </button>
 
-    <section class="footer">
-      מערכת לניהול שוכרים
-    </section>
-  </main>
+          <button type="button" class="answer-button answer-no" onclick="chooseAnswer('no')">
+            ❌ לא ממשיך/ה
+            <small>אינני מעוניין/ת להמשיך לשנה נוספת</small>
+          </button>
+
+          <button type="button" class="answer-button answer-later" onclick="chooseAnswer('later')">
+            ⏳ אחליט בקרוב
+            <small>עדיין לא קיבלתי החלטה סופית</small>
+          </button>
+        </div>
+
+        <div id="resultBox" class="result"></div>
+
+        <div class="footer-note">
+          בשלב זה מדובר בדף הדגמה לצורך בחינת חוויית המשתמש.
+          <div class="project-signature">מערכת לניהול שוכרים</div>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <script>
     function getParam(name, fallback) {
@@ -226,6 +381,13 @@
       setText("tenantName", name);
       setText("contractEnd", end);
       setText("unitInfo", unitParts.length ? unitParts.join(" | ") : "לא צוינה");
+
+      const logo = document.getElementById("brandLogo");
+      if (logo) {
+        logo.addEventListener("error", function() {
+          logo.classList.add("is-hidden");
+        });
+      }
     }
 
     function chooseAnswer(answer) {
