@@ -369,14 +369,7 @@
     </main>
   </div>
 
-  <script>
-    function getParam(name, fallback) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(name) || fallback;
-    }
-
-    function setText(id, value) {
-    // DEMO TOKEN DATA START
+    <script>
     const DEMO_RENEWAL_TOKENS = {
       "demo1": {
         name: "יוסי כהן",
@@ -394,6 +387,16 @@
       }
     };
 
+    function getParam(name, fallback) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name) || fallback;
+    }
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
     function getRenewalSurveyData() {
       const token = getParam("t", "").trim();
 
@@ -410,12 +413,8 @@
         room: getParam("room", "")
       };
     }
-    // DEMO TOKEN DATA END
-      const el = document.getElementById(id);
-      if (el) el.textContent = value;
-    }
 
-        function initPage() {
+    function initPage() {
       const data = getRenewalSurveyData();
 
       const unitParts = [];
@@ -432,8 +431,6 @@
         logo.addEventListener("error", function() {
           logo.classList.add("is-hidden");
         });
-      }
-    });
       }
     }
 
@@ -463,7 +460,8 @@
       localStorage.setItem("renewalDemoLastAnswer", JSON.stringify({
         answer: answer,
         answeredAt: new Date().toISOString(),
-        pageUrl: window.location.href
+        pageUrl: window.location.href,
+        token: getParam("t", "")
       }));
     }
 
@@ -471,6 +469,7 @@
   </script>
 </body>
 </html>
+
 
 
 
