@@ -369,7 +369,7 @@
     </main>
   </div>
 
-          <script>
+            <script>
     const RENEWAL_SUPABASE_URL = "https://erhfqlcfwjqehffxetbv.supabase.co";
     const RENEWAL_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyaGZxbGNmd2pxZWhmZnhldGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1OTU4OTAsImV4cCI6MjA5NjE3MTg5MH0.Cq0tiB4NP17E5O_cB4dPNmFk_dl7FYxwQq75p4tlOZc";
 
@@ -406,30 +406,30 @@
 
     function normalizeRenewalRecord(record) {
       return {
-        token: record?.token || "",
-        name: record?.tenant_name || record?.name || "שוכר/ת",
-        end: record?.contract_end_date || record?.end || "לא צוין",
-        building: record?.building || "",
-        apartment: record?.apartment || "",
-        room: record?.room || "",
-        answer: record?.answer || ""
+        token: (record && record.token) || "",
+        name: (record && (record.tenant_name || record.name)) || "שוכר/ת",
+        end: (record && (record.contract_end_date || record.end)) || "לא צוין",
+        building: (record && record.building) || "",
+        apartment: (record && record.apartment) || "",
+        room: (record && record.room) || "",
+        answer: (record && record.answer) || ""
       };
     }
 
     async function fetchRenewalRecordFromSupabase(token) {
-      const url = ${RENEWAL_SUPABASE_URL}/rest/v1/contract_renewal_responses?select=*&token=eq.&limit=1;
+      const url = RENEWAL_SUPABASE_URL + "/rest/v1/contract_renewal_responses?select=*&token=eq." + encodeURIComponent(token) + "&limit=1";
 
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "apikey": RENEWAL_SUPABASE_ANON_KEY,
-          "Authorization": Bearer 
+          "Authorization": "Bearer " + RENEWAL_SUPABASE_ANON_KEY
         }
       });
 
       if (!response.ok) {
-        const errorText = await response.text().catch(() => "");
-        throw new Error(Supabase read failed:  );
+        const errorText = await response.text().catch(function() { return ""; });
+        throw new Error("Supabase read failed: " + response.status + " " + errorText);
       }
 
       const rows = await response.json();
@@ -519,11 +519,11 @@
         return;
       }
 
-      const response = await fetch(${RENEWAL_SUPABASE_URL}/rest/v1/contract_renewal_responses?token=eq., {
+      const response = await fetch(RENEWAL_SUPABASE_URL + "/rest/v1/contract_renewal_responses?token=eq." + encodeURIComponent(token), {
         method: "PATCH",
         headers: {
           "apikey": RENEWAL_SUPABASE_ANON_KEY,
-          "Authorization": Bearer ,
+          "Authorization": "Bearer " + RENEWAL_SUPABASE_ANON_KEY,
           "Content-Type": "application/json",
           "Prefer": "return=representation"
         },
@@ -535,8 +535,8 @@
       });
 
       if (!response.ok) {
-        const errorText = await response.text().catch(() => "");
-        throw new Error(Supabase answer save failed:  );
+        const errorText = await response.text().catch(function() { return ""; });
+        throw new Error("Supabase answer save failed: " + response.status + " " + errorText);
       }
     }
 
@@ -587,6 +587,7 @@
   </script>
 </body>
 </html>
+
 
 
 
