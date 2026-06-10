@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>סקר חידוש חוזה</title>
+
+  <style>
+    :root {
+      --blue-dark: #0f3d66;
+      --blue: #226ea8;
+      --green: #25D366;
+      --red: #d32f2f;
+      --orange: #f28c28;
+      --bg: #eef8ff;
+      --border: #cfe3ef;
+      --text: #123;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #eaf7ff, #ffffff);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .card {
+      width: min(560px, 100%);
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: 0 8px 28px rgba(15, 61, 102, 0.14);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0f3d66, #226ea8);
+      color: #ffffff;
+      padding: 24px 22px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .header p {
+      margin: 8px 0 0;
+      font-size: 15px;
+      opacity: 0.95;
+    }
+
+    .body {
+      padding: 22px;
+    }
+
+    .tenant-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 18px;
+      line-height: 1.8;
+      font-weight: bold;
+    }
+
+    .question {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--blue-dark);
+      margin: 0 0 14px;
+      text-align: center;
+    }
+
+    .hint {
+      font-size: 14px;
+      color: #456;
+      text-align: center;
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 15px 14px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    }
+
+    button:hover {
+      filter: brightness(0.96);
+      transform: translateY(-1px);
+    }
+
+    .yes {
+      background: var(--green);
+    }
+
+    .no {
+      background: var(--red);
+    }
+
+    .later {
+      background: var(--orange);
+    }
+
+    .result {
+      display: none;
+      padding: 18px;
+      border-radius: 16px;
+      text-align: center;
+      line-height: 1.7;
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 18px;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .result.yes-result {
+      background: #e8f5e9;
+      color: #1b5e20;
+      border: 1px solid #a5d6a7;
+    }
+
+    .result.no-result {
+      background: #ffebee;
+      color: #8b1a1a;
+      border: 1px solid #ef9a9a;
+    }
+
+    .result.later-result {
+      background: #fff8e1;
+      color: #8a5400;
+      border: 1px solid #f3c37a;
+    }
+
+    .footer {
+      font-size: 12px;
+      color: #678;
+      text-align: center;
+      padding: 0 22px 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <section class="header">
+      <h1>סקר חידוש חוזה</h1>
+      <p>אנא בחר/י את האפשרות המתאימה</p>
+    </section>
+
+    <section class="body">
+      <div class="tenant-box">
+        <div>שלום <span id="tenantName">שוכר/ת</span>,</div>
+        <div>החוזה שלך מסתיים בתאריך: <span id="contractEnd">לא צוין</span></div>
+        <div>יחידה: <span id="unitInfo">לא צוינה</span></div>
+      </div>
+
+      <p class="question">האם תרצה/י להמשיך לשנה נוספת?</p>
+
+      <div class="hint">
+        הבחירה בדוגמה הזו אינה נשלחת עדיין למערכת.  
+        כרגע זה רק דף בדיקה לצד השוכר.
+      </div>
+
+      <div class="actions" id="actions">
+        <button type="button" class="yes" onclick="chooseAnswer('yes')">✅ ממשיך/ה</button>
+        <button type="button" class="no" onclick="chooseAnswer('no')">❌ לא ממשיך/ה</button>
+        <button type="button" class="later" onclick="chooseAnswer('later')">⏳ אחליט בקרוב</button>
+      </div>
+
+      <div id="resultBox" class="result"></div>
+    </section>
+
+    <section class="footer">
+      מערכת לניהול שוכרים
+    </section>
+  </main>
+
+  <script>
+    function getParam(name, fallback) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name) || fallback;
+    }
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function initPage() {
+      const name = getParam("name", "שוכר/ת");
+      const end = getParam("end", "לא צוין");
+      const building = getParam("building", "");
+      const apartment = getParam("apartment", "");
+      const room = getParam("room", "");
+
+      const unitParts = [];
+      if (building) unitParts.push("בניין " + building);
+      if (apartment) unitParts.push("דירה " + apartment);
+      if (room) unitParts.push("חדר " + room);
+
+      setText("tenantName", name);
+      setText("contractEnd", end);
+      setText("unitInfo", unitParts.length ? unitParts.join(" | ") : "לא צוינה");
+    }
+
+    function chooseAnswer(answer) {
+      const resultBox = document.getElementById("resultBox");
+      const actions = document.getElementById("actions");
+
+      resultBox.className = "result show";
+
+      if (answer === "yes") {
+        resultBox.classList.add("yes-result");
+        resultBox.innerHTML = "תודה רבה!<br>סימנת שברצונך להמשיך לשנה נוספת.";
+      }
+
+      if (answer === "no") {
+        resultBox.classList.add("no-result");
+        resultBox.innerHTML = "תודה רבה על העדכון.<br>סימנת שאינך ממשיך/ה לשנה נוספת.";
+      }
+
+      if (answer === "later") {
+        resultBox.classList.add("later-result");
+        resultBox.innerHTML = "תודה רבה.<br>סימנת שתחליט/י בקרוב.";
+      }
+
+      actions.style.display = "none";
+
+      localStorage.setItem("renewalDemoLastAnswer", JSON.stringify({
+        answer: answer,
+        answeredAt: new Date().toISOString(),
+        pageUrl: window.location.href
+      }));
+    }
+
+    initPage();
+  </script>
+</body>
+</html>
