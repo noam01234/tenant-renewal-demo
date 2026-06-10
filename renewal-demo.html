@@ -376,24 +376,55 @@
     }
 
     function setText(id, value) {
+    // DEMO TOKEN DATA START
+    const DEMO_RENEWAL_TOKENS = {
+      "demo1": {
+        name: "יוסי כהן",
+        end: "31/12/2026",
+        building: "1",
+        apartment: "4",
+        room: "2"
+      },
+      "demo2": {
+        name: "נועם יוסף",
+        end: "15/01/2027",
+        building: "17/1",
+        apartment: "4",
+        room: "2"
+      }
+    };
+
+    function getRenewalSurveyData() {
+      const token = getParam("t", "").trim();
+
+      if (token && DEMO_RENEWAL_TOKENS[token]) {
+        return Object.assign({ token: token }, DEMO_RENEWAL_TOKENS[token]);
+      }
+
+      return {
+        token: "",
+        name: getParam("name", "שוכר/ת"),
+        end: getParam("end", "לא צוין"),
+        building: getParam("building", ""),
+        apartment: getParam("apartment", ""),
+        room: getParam("room", "")
+      };
+    }
+    // DEMO TOKEN DATA END
       const el = document.getElementById(id);
       if (el) el.textContent = value;
     }
 
-    function initPage() {
-      const name = getParam("name", "שוכר/ת");
-      const end = getParam("end", "לא צוין");
-      const building = getParam("building", "");
-      const apartment = getParam("apartment", "");
-      const room = getParam("room", "");
+        function initPage() {
+      const data = getRenewalSurveyData();
 
       const unitParts = [];
-      if (building) unitParts.push("בניין " + building);
-      if (apartment) unitParts.push("דירה " + apartment);
-      if (room) unitParts.push("חדר " + room);
+      if (data.building) unitParts.push("בניין " + data.building);
+      if (data.apartment) unitParts.push("דירה " + data.apartment);
+      if (data.room) unitParts.push("חדר " + data.room);
 
-      setText("tenantName", name);
-      setText("contractEnd", end);
+      setText("tenantName", data.name || "שוכר/ת");
+      setText("contractEnd", data.end || "לא צוין");
       setText("unitInfo", unitParts.length ? unitParts.join(" | ") : "לא צוינה");
 
       const logo = document.getElementById("brandLogo");
@@ -401,6 +432,8 @@
         logo.addEventListener("error", function() {
           logo.classList.add("is-hidden");
         });
+      }
+    });
       }
     }
 
@@ -438,5 +471,6 @@
   </script>
 </body>
 </html>
+
 
 
