@@ -1,6 +1,205 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-<head>
+<style id="renewal-mobile-yosef-blue-3d-v1">
+  body {
+    direction: rtl;
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(62, 150, 255, 0.16), transparent 34%),
+      linear-gradient(180deg, #eef7ff 0%, #ffffff 44%, #eaf5ff 100%) !important;
+    color: #0b2f63;
+  }
+
+  .page,
+  .container,
+  .main,
+  .card,
+  .wrapper {
+    max-width: 430px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .brand-header,
+  .hero,
+  .header,
+  .top-header {
+    background:
+      radial-gradient(circle at 15% 10%, rgba(80, 170, 255, 0.35), transparent 32%),
+      linear-gradient(135deg, #005ed7 0%, #0047a8 48%, #062b68 100%) !important;
+    color: #ffffff !important;
+    border-radius: 0 0 28px 28px !important;
+    padding: 28px 18px 34px !important;
+    box-shadow: 0 12px 28px rgba(4, 45, 105, 0.24) !important;
+  }
+
+  .brand-header::before,
+  .hero::before,
+  .header::before,
+  .top-header::before {
+    content: "YoSeF";
+    display: block;
+    font-size: 42px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
+    margin-bottom: 8px;
+  }
+
+  .brand-header::after,
+  .hero::after,
+  .header::after,
+  .top-header::after {
+    content: "מערכת לניהול שוכרים";
+    display: block;
+    font-size: 17px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.94);
+    text-align: center;
+  }
+
+  h1,
+  .title,
+  .main-title {
+    color: #0b2f63 !important;
+    font-weight: 900 !important;
+    font-size: 30px !important;
+    line-height: 1.18 !important;
+    text-align: center !important;
+  }
+
+  .card,
+  .question-card,
+  .content-card,
+  .survey-card {
+    background: rgba(255, 255, 255, 0.96) !important;
+    border: 1px solid #d9e9f8 !important;
+    border-radius: 24px !important;
+    box-shadow: 0 16px 36px rgba(18, 74, 130, 0.14) !important;
+    padding: 22px 16px !important;
+  }
+
+  .tenant-info,
+  .details-box,
+  .info-box {
+    background: linear-gradient(180deg, #f8fcff 0%, #eef7ff 100%) !important;
+    border: 1px solid #c9def2 !important;
+    border-radius: 18px !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.85) !important;
+  }
+
+  .actions,
+  .answer-actions,
+  .renewal-actions,
+  #actions {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    margin-top: 18px !important;
+  }
+
+  button[onclick*="chooseAnswer"],
+  .action-button,
+  .answer-button,
+  .choice-button {
+    position: relative !important;
+    min-height: 128px !important;
+    padding: 18px 8px 14px !important;
+    border-radius: 18px !important;
+    border: 1px solid #003f99 !important;
+    background:
+      linear-gradient(180deg, #55a8ff 0%, #1972e6 48%, #004caf 100%) !important;
+    color: #ffffff !important;
+    font-size: 19px !important;
+    font-weight: 900 !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.45),
+      inset 0 -7px 0 rgba(0, 38, 105, 0.34),
+      0 10px 18px rgba(0, 62, 145, 0.28) !important;
+    text-shadow: 0 2px 4px rgba(0, 33, 84, 0.35) !important;
+    transform: translateY(0) !important;
+  }
+
+  button[onclick*="chooseAnswer"]:active,
+  .action-button:active,
+  .answer-button:active,
+  .choice-button:active {
+    transform: translateY(3px) !important;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.3),
+      inset 0 -3px 0 rgba(0, 38, 105, 0.28),
+      0 5px 10px rgba(0, 62, 145, 0.22) !important;
+  }
+
+  button[onclick*="chooseAnswer('yes')"]::before,
+  button[onclick*='chooseAnswer("yes")']::before {
+    content: "✓";
+  }
+
+  button[onclick*="chooseAnswer('no')"]::before,
+  button[onclick*='chooseAnswer("no")']::before {
+    content: "✕";
+  }
+
+  button[onclick*="chooseAnswer('later')"]::before,
+  button[onclick*='chooseAnswer("later")']::before {
+    content: "⌛";
+  }
+
+  button[onclick*="chooseAnswer"]::before,
+  .action-button::before,
+  .answer-button::before,
+  .choice-button::before {
+    display: block;
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 12px;
+    color: #ffffff;
+    text-shadow: 0 2px 5px rgba(0, 35, 88, 0.35);
+  }
+
+  @media (max-width: 390px) {
+    .actions,
+    .answer-actions,
+    .renewal-actions,
+    #actions {
+      gap: 8px !important;
+    }
+
+    button[onclick*="chooseAnswer"],
+    .action-button,
+    .answer-button,
+    .choice-button {
+      min-height: 118px !important;
+      font-size: 17px !important;
+      padding-left: 5px !important;
+      padding-right: 5px !important;
+    }
+
+    button[onclick*="chooseAnswer"]::before,
+    .action-button::before,
+    .answer-button::before,
+    .choice-button::before {
+      font-size: 32px;
+      margin-bottom: 9px;
+    }
+
+    h1,
+    .title,
+    .main-title {
+      font-size: 27px !important;
+    }
+  }
+</style>
+  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>סקר חידוש חוזה</title>
