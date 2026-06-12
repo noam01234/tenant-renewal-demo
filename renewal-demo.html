@@ -1,707 +1,579 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-<style id="renewal-mobile-yosef-blue-3d-v1">
-  body {
-    direction: rtl;
-    margin: 0;
-    min-height: 100vh;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(62, 150, 255, 0.16), transparent 34%),
-      linear-gradient(180deg, #eef7ff 0%, #ffffff 44%, #eaf5ff 100%) !important;
-    color: #0b2f63;
-  }
-
-  .page,
-  .container,
-  .main,
-  .card,
-  .wrapper {
-    max-width: 430px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  .brand-header,
-  .hero,
-  .header,
-  .top-header {
-    background:
-      radial-gradient(circle at 15% 10%, rgba(80, 170, 255, 0.35), transparent 32%),
-      linear-gradient(135deg, #005ed7 0%, #0047a8 48%, #062b68 100%) !important;
-    color: #ffffff !important;
-    border-radius: 0 0 28px 28px !important;
-    padding: 28px 18px 34px !important;
-    box-shadow: 0 12px 28px rgba(4, 45, 105, 0.24) !important;
-  }
-
-  .brand-header::before,
-  .hero::before,
-  .header::before,
-  .top-header::before {
-    content: "YoSeF";
-    display: block;
-    font-size: 42px;
-    line-height: 1;
-    font-weight: 900;
-    letter-spacing: 0.5px;
-    color: #ffffff;
-    text-align: center;
-    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
-    margin-bottom: 8px;
-  }
-
-  .brand-header::after,
-  .hero::after,
-  .header::after,
-  .top-header::after {
-    content: "מערכת לניהול שוכרים";
-    display: block;
-    font-size: 17px;
-    font-weight: 800;
-    color: rgba(255, 255, 255, 0.94);
-    text-align: center;
-  }
-
-  h1,
-  .title,
-  .main-title {
-    color: #0b2f63 !important;
-    font-weight: 900 !important;
-    font-size: 30px !important;
-    line-height: 1.18 !important;
-    text-align: center !important;
-  }
-
-  .card,
-  .question-card,
-  .content-card,
-  .survey-card {
-    background: rgba(255, 255, 255, 0.96) !important;
-    border: 1px solid #d9e9f8 !important;
-    border-radius: 24px !important;
-    box-shadow: 0 16px 36px rgba(18, 74, 130, 0.14) !important;
-    padding: 22px 16px !important;
-  }
-
-  .tenant-info,
-  .details-box,
-  .info-box {
-    background: linear-gradient(180deg, #f8fcff 0%, #eef7ff 100%) !important;
-    border: 1px solid #c9def2 !important;
-    border-radius: 18px !important;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.85) !important;
-  }
-
-  .actions,
-  .answer-actions,
-  .renewal-actions,
-  #actions {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 10px !important;
-    align-items: stretch !important;
-    width: 100% !important;
-    margin-top: 18px !important;
-  }
-
-  button[onclick*="chooseAnswer"],
-  .action-button,
-  .answer-button,
-  .choice-button {
-    position: relative !important;
-    min-height: 128px !important;
-    padding: 18px 8px 14px !important;
-    border-radius: 18px !important;
-    border: 1px solid #003f99 !important;
-    background:
-      linear-gradient(180deg, #55a8ff 0%, #1972e6 48%, #004caf 100%) !important;
-    color: #ffffff !important;
-    font-size: 19px !important;
-    font-weight: 900 !important;
-    line-height: 1.15 !important;
-    text-align: center !important;
-    box-shadow:
-      inset 0 2px 0 rgba(255,255,255,0.45),
-      inset 0 -7px 0 rgba(0, 38, 105, 0.34),
-      0 10px 18px rgba(0, 62, 145, 0.28) !important;
-    text-shadow: 0 2px 4px rgba(0, 33, 84, 0.35) !important;
-    transform: translateY(0) !important;
-  }
-
-  button[onclick*="chooseAnswer"]:active,
-  .action-button:active,
-  .answer-button:active,
-  .choice-button:active {
-    transform: translateY(3px) !important;
-    box-shadow:
-      inset 0 2px 0 rgba(255,255,255,0.3),
-      inset 0 -3px 0 rgba(0, 38, 105, 0.28),
-      0 5px 10px rgba(0, 62, 145, 0.22) !important;
-  }
-
-  button[onclick*="chooseAnswer('yes')"]::before,
-  button[onclick*='chooseAnswer("yes")']::before {
-    content: "✓";
-  }
-
-  button[onclick*="chooseAnswer('no')"]::before,
-  button[onclick*='chooseAnswer("no")']::before {
-    content: "✕";
-  }
-
-  button[onclick*="chooseAnswer('later')"]::before,
-  button[onclick*='chooseAnswer("later")']::before {
-    content: "⌛";
-  }
-
-  button[onclick*="chooseAnswer"]::before,
-  .action-button::before,
-  .answer-button::before,
-  .choice-button::before {
-    display: block;
-    font-size: 36px;
-    line-height: 1;
-    margin-bottom: 12px;
-    color: #ffffff;
-    text-shadow: 0 2px 5px rgba(0, 35, 88, 0.35);
-  }
-
-  @media (max-width: 390px) {
-    .actions,
-    .answer-actions,
-    .renewal-actions,
-    #actions {
-      gap: 8px !important;
-    }
-
-    button[onclick*="chooseAnswer"],
-    .action-button,
-    .answer-button,
-    .choice-button {
-      min-height: 118px !important;
-      font-size: 17px !important;
-      padding-left: 5px !important;
-      padding-right: 5px !important;
-    }
-
-    button[onclick*="chooseAnswer"]::before,
-    .action-button::before,
-    .answer-button::before,
-    .choice-button::before {
-      font-size: 32px;
-      margin-bottom: 9px;
-    }
-
-    h1,
-    .title,
-    .main-title {
-      font-size: 27px !important;
-    }
-  }
-</style>
-  <head>
+<head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>סקר חידוש חוזה</title>
-  <!-- OPEN GRAPH PREVIEW START -->
-  <meta property="og:title" content="סקר חידוש חוזה" />
-  <meta property="og:description" content="בחר/י האם ברצונך להמשיך לשנה נוספת." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>שאלה קצרה לחידוש חוזה</title>
+
+  <meta property="og:title" content="שאלה קצרה לחידוש חוזה" />
+  <meta property="og:description" content="בחר/י האם ברצונך לחדש את החוזה לשנה נוספת." />
   <meta property="og:image" content="https://noam01234.github.io/tenant-renewal-demo/renewal-share.png" />
-  <meta property="og:image:secure_url" content="https://noam01234.github.io/tenant-renewal-demo/renewal-share.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="800" />
-  <meta property="og:image:height" content="800" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://noam01234.github.io/tenant-renewal-demo/renewal-demo.html" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="סקר חידוש חוזה" />
-  <meta name="twitter:description" content="בחר/י האם ברצונך להמשיך לשנה נוספת." />
-  <meta name="twitter:image" content="https://noam01234.github.io/tenant-renewal-demo/renewal-share.png" />
-  <!-- OPEN GRAPH PREVIEW END -->
+
   <style>
     :root {
-      --blue-dark: #0f3d66;
-      --blue: #226ea8;
-      --blue-soft: #eef8ff;
-      --blue-border: #cfe3ef;
-      --green: #25D366;
-      --red: #d9534f;
-      --orange: #f0a43a;
-      --text: #123;
-      --muted: #5f768c;
-      --bg: #f7fbfe;
-      --white: #ffffff;
+      --blue-dark: #06255f;
+      --blue-deep: #07327f;
+      --blue-main: #075ee8;
+      --blue-mid: #126ff2;
+      --blue-light: #3a9cff;
+      --text-blue: #0b347f;
+      --soft-bg: #edf5ff;
+      --panel-bg: #ffffff;
+      --panel-border: #e1ebf7;
+      --muted: #3b3b3b;
     }
 
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Arial, sans-serif;
+      background: #eaf3fc;
+      color: var(--text-blue);
     }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top right, rgba(34,110,168,0.08), transparent 25%),
-        linear-gradient(180deg, #f3faff 0%, #ffffff 60%);
+      direction: rtl;
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone-page {
+      width: 100%;
+      max-width: 520px;
       min-height: 100vh;
-      padding: 20px;
-    }
-
-    .page-shell {
-      width: min(760px, 100%);
-      margin: 0 auto;
-    }
-
-    .brand-header {
-      background: linear-gradient(135deg, #0f3d66 0%, #226ea8 100%);
-      color: #fff;
-      border-radius: 24px;
-      box-shadow: 0 16px 32px rgba(15, 61, 102, 0.18);
-      padding: 18px 22px;
-      margin-bottom: 18px;
       position: relative;
       overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 92%, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.34) 28%, transparent 56%),
+        linear-gradient(180deg, #f7fbff 0%, #eaf4ff 100%);
+      box-shadow: 0 0 32px rgba(6,37,95,0.10);
     }
 
-    .brand-header::before {
+    .phone-page::before {
       content: "";
       position: absolute;
-      inset: 0;
+      left: -220px;
+      bottom: -220px;
+      width: 640px;
+      height: 640px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.70), rgba(255,255,255,0.22) 44%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .phone-page::after {
+      content: "";
+      position: absolute;
+      right: -230px;
+      bottom: 140px;
+      width: 560px;
+      height: 240px;
+      background: linear-gradient(130deg, rgba(255,255,255,0.38), rgba(255,255,255,0.05));
+      transform: rotate(-24deg);
+      border-radius: 80px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .top-header {
+      position: relative;
+      z-index: 1;
+      min-height: 205px;
+      padding: 26px 22px 30px;
+      border-radius: 0 0 30px 30px;
+      overflow: hidden;
       background:
-        radial-gradient(circle at 12% 18%, rgba(255,255,255,0.16), transparent 28%),
-        radial-gradient(circle at 85% 78%, rgba(255,255,255,0.10), transparent 25%);
+        radial-gradient(circle at 0% 0%, rgba(67,164,255,0.38), transparent 32%),
+        radial-gradient(circle at 100% 100%, rgba(51,154,255,0.30), transparent 30%),
+        linear-gradient(135deg, #0b67eb 0%, #0746b4 42%, #06255f 100%);
+      box-shadow: 0 12px 26px rgba(6,37,95,0.26);
+    }
+
+    .top-header::before,
+    .top-header::after {
+      content: "";
+      position: absolute;
+      border: 1.4px solid rgba(96,184,255,0.42);
+      border-radius: 50%;
       pointer-events: none;
     }
 
-    .brand-header-inner {
-      position: relative;
-      z-index: 1;
-      min-height: 88px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 130px 10px 130px;
+    .top-header::before {
+      width: 330px;
+      height: 330px;
+      top: -210px;
+      left: -110px;
     }
 
-    .brand-logo-wrap {
+    .top-header::after {
+      width: 460px;
+      height: 460px;
+      right: -190px;
+      bottom: -360px;
+    }
+
+    .hamburger {
       position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 110px;
+      top: 30px;
+      left: 26px;
+      width: 34px;
+      height: 26px;
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 2;
+    }
+
+    .hamburger span {
+      height: 4px;
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.16);
+    }
+
+    .brand {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
+      text-align: center;
     }
 
     .brand-logo {
-      max-width: 100px;
-      max-height: 78px;
-      object-fit: contain;
+      width: 132px;
+      max-width: 44vw;
+      height: auto;
       display: block;
-      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.18));
+      filter: drop-shadow(0 5px 9px rgba(0,0,0,0.25));
+      margin-bottom: 8px;
     }
 
-    .brand-logo.is-hidden {
-      display: none;
+    .brand-sub {
+      color: #ffffff;
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.1;
+      text-shadow: 0 3px 7px rgba(0,0,0,0.18);
     }
 
-    .brand-title {
+    .content-wrap {
+      position: relative;
+      z-index: 1;
+      margin-top: -12px;
+      padding: 0 16px 18px;
+    }
+
+    .outer-panel {
+      background: linear-gradient(180deg, #eef5fe 0%, #e9f2fc 100%);
+      border-radius: 30px;
+      padding: 20px 14px 18px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.85),
+        0 7px 16px rgba(39,83,146,0.08);
+    }
+
+    .card {
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border-radius: 24px;
+      padding: 25px 14px 25px;
+      border: 1px solid var(--panel-border);
+      box-shadow:
+        0 13px 30px rgba(17,73,151,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.95);
       text-align: center;
     }
 
-    .brand-title h1 {
+    .title {
       margin: 0;
-      font-size: 30px;
-      line-height: 1.2;
-      font-weight: bold;
-      color: #fff;
+      color: var(--text-blue);
+      font-size: clamp(29px, 7.1vw, 38px);
+      font-weight: 900;
+      line-height: 1.16;
+      letter-spacing: -0.4px;
     }
 
-    .brand-title p {
-      margin: 8px 0 0;
-      font-size: 15px;
-      color: rgba(255,255,255,0.94);
+    .sub-title {
+      margin: 10px 0 0;
+      color: #1f6cf1;
+      font-size: clamp(18px, 4.7vw, 24px);
+      font-weight: 500;
     }
 
-    .survey-card {
-      background: var(--white);
-      border: 1px solid var(--blue-border);
-      border-radius: 22px;
-      box-shadow: 0 8px 24px rgba(15, 61, 102, 0.10);
-      overflow: hidden;
+    .divider-line {
+      margin: 15px auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
     }
 
-    .survey-card-body {
-      padding: 24px;
+    .divider-line::before,
+    .divider-line::after {
+      content: "";
+      width: min(145px, 30vw);
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #2d76f4, transparent);
+      border-radius: 3px;
     }
 
-    .tenant-box {
-      background: var(--blue-soft);
-      border: 1px solid var(--blue-border);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 20px;
-      line-height: 1.9;
-      font-weight: bold;
+    .mini-house {
+      width: 26px;
+      height: 23px;
+      position: relative;
+      flex: 0 0 auto;
+      color: #1f6cf1;
+      font-size: 25px;
+      line-height: 1;
     }
 
-    .tenant-box .label {
-      color: var(--muted);
-      font-weight: normal;
-      margin-left: 6px;
+    .one-question {
+      margin: 0;
+      color: #222;
+      font-size: clamp(16px, 4.2vw, 22px);
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    .section-separator {
+      width: 100%;
+      height: 2px;
+      background: #e2eaf5;
+      border-radius: 4px;
+      margin: 22px 0 24px;
     }
 
     .question {
-      margin: 0 0 10px;
-      text-align: center;
-      font-size: 24px;
-      color: var(--blue-dark);
-      font-weight: bold;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.7;
-      margin: 0 0 20px;
+      margin: 0 0 22px;
+      color: var(--text-blue);
+      font-size: clamp(23px, 5.6vw, 34px);
+      font-weight: 900;
+      line-height: 1.22;
     }
 
     .actions {
       display: grid;
-      gap: 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+      margin-bottom: 28px;
+      direction: ltr;
     }
 
-    .answer-button {
-      border: none;
-      border-radius: 16px;
-      padding: 16px 18px;
+    .action-btn {
+      min-height: 154px;
+      border: 0;
+      border-radius: 19px;
+      padding: 16px 6px 14px;
       cursor: pointer;
-      color: #fff;
-      font-size: 20px;
-      font-weight: bold;
-      line-height: 1.4;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
-      transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+      color: #ffffff;
+      background:
+        linear-gradient(180deg, #3a9cff 0%, #1275f2 27%, #0756cf 70%, #063eaa 100%);
+      box-shadow:
+        inset 0 2px 0 rgba(255,255,255,0.36),
+        inset 0 -8px 0 rgba(1,33,102,0.34),
+        0 11px 17px rgba(7,74,178,0.26);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 0 2px 4px rgba(0,34,90,0.32);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      position: relative;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
     }
 
-    .answer-button:hover {
-      transform: translateY(-1px);
-      filter: brightness(0.98);
-      box-shadow: 0 7px 16px rgba(0,0,0,0.14);
+    .action-btn::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 12px;
+      right: 12px;
+      height: 42%;
+      border-radius: 17px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.02));
+      pointer-events: none;
     }
 
-    .answer-button small {
-      display: block;
-      font-size: 13px;
-      font-weight: normal;
-      opacity: 0.95;
-      margin-top: 4px;
+    .action-btn:active {
+      transform: translateY(3px);
+      box-shadow:
+        inset 0 2px 0 rgba(255,255,255,0.28),
+        inset 0 -4px 0 rgba(1,33,102,0.28),
+        0 6px 10px rgba(7,74,178,0.22);
     }
 
-    .answer-yes {
-      background: linear-gradient(135deg, #22b15b, #25D366);
+    .icon {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(42px, 10.5vw, 58px);
+      line-height: 1;
+      font-weight: 900;
+      margin-bottom: 13px;
+      color: #ffffff;
+    }
+.btn-main {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(20px, 5.2vw, 28px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      white-space: nowrap;
     }
 
-    .answer-no {
-      background: linear-gradient(135deg, #cb3d3d, #e05b5b);
+    .btn-sub {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(11px, 2.9vw, 15px);
+      font-weight: 800;
+      line-height: 1.25;
+      white-space: normal;
     }
 
-    .answer-later {
-      background: linear-gradient(135deg, #d88a1c, #f0a43a);
+    .thanks {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-blue);
+      font-size: clamp(20px, 5.2vw, 28px);
+      font-weight: 900;
+      margin: 8px 0 3px;
+    }
+
+    .heart {
+      font-size: clamp(39px, 8.6vw, 54px);
+      line-height: 1;
+      font-weight: 400;
     }
 
     .result {
       display: none;
-      margin-top: 20px;
+      margin-top: 18px;
       border-radius: 18px;
-      padding: 18px;
+      padding: 16px;
       text-align: center;
-      line-height: 1.8;
-      font-size: 19px;
-      font-weight: bold;
+      line-height: 1.7;
+      font-size: 18px;
+      font-weight: 900;
     }
 
     .result.show {
       display: block;
     }
 
-    .result.yes-result {
+    .yes-result {
       background: #e8f7ec;
       color: #1d6a31;
       border: 1px solid #a9d7b5;
     }
 
-    .result.no-result {
+    .no-result {
       background: #fdecec;
       color: #8d2525;
       border: 1px solid #efb2b2;
     }
 
-    .result.later-result {
+    .later-result {
       background: #fff7e8;
       color: #8c5a10;
       border: 1px solid #f0cf95;
     }
 
-    .footer-note {
-      border-top: 1px solid #e6f0f6;
-      margin-top: 22px;
-      padding-top: 16px;
+    .footer {
+      position: relative;
+      z-index: 1;
       text-align: center;
-      color: var(--muted);
+      color: #1265c6;
       font-size: 13px;
-      line-height: 1.7;
+      font-weight: 500;
+      margin: 27px 0 4px;
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
-    .project-signature {
-      margin-top: 8px;
-      font-weight: bold;
-      color: var(--blue-dark);
-    }
-
-    @media (max-width: 700px) {
-      body {
-        padding: 12px;
+    @media (max-width: 380px) {
+      .question {
+        font-size: 24px;
       }
 
-      .brand-header-inner {
-        padding: 6px 0;
-        display: grid;
-        grid-template-columns: 1fr;
-        justify-items: center;
-        gap: 12px;
-        min-height: auto;
-      }
-
-      .brand-logo-wrap {
-        position: static;
-        transform: none;
-        width: auto;
-        justify-content: center;
+      .top-header {
+        min-height: 190px;
       }
 
       .brand-logo {
-        max-width: 90px;
-        max-height: 68px;
+        width: 116px;
       }
 
-      .brand-title h1 {
-        font-size: 26px;
+      .brand-sub {
+        font-size: 17px;
       }
 
-      .brand-title p {
-        font-size: 14px;
+      .content-wrap {
+        padding-left: 10px;
+        padding-right: 10px;
       }
 
-      .survey-card-body {
-        padding: 18px;
+      .outer-panel {
+        padding: 16px 10px 16px;
       }
 
-      .question {
-        font-size: 21px;
+      .card {
+        padding: 22px 11px 23px;
       }
 
-      .answer-button {
-        font-size: 18px;
-        padding: 15px 14px;
+      .actions {
+        gap: 8px;
+      }
+
+      .action-btn {
+        min-height: 140px;
+        border-radius: 17px;
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+
+  
+    .hourglass-icon {
+      width: 42px;
+      height: 58px;
+      margin-bottom: 13px;
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      filter: drop-shadow(0 3px 4px rgba(0,34,90,0.28));
+    }
+
+    .hourglass-icon::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='84' viewBox='0 0 64 84'%3E%3Cpath d='M16 6 H48 M16 78 H48 M20 6 C20 25 44 25 44 42 C44 59 20 59 20 78 M44 6 C44 25 20 25 20 42 C20 59 44 59 44 78' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M24 31 H40 L32 40 Z M24 64 H40 L32 52 Z' fill='white' opacity='0.96'/%3E%3C/svg%3E");
+    }
+
+    .action-later .btn-main {
+      font-size: clamp(18px, 4.7vw, 25px);
+      line-height: 1.05;
+      white-space: normal;
+      margin-bottom: 7px;
+    }
+
+    .hourglass-real {
+      width: 48px;
+      height: 60px;
+      display: block;
+      color: #ffffff;
+      filter: drop-shadow(0 3px 4px rgba(0,34,90,0.28));
+    }
+
+    .btn-main {
+        font-size: 19px;
+      }
+
+      .btn-sub {
+        font-size: 11px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="page-shell">
-    <header class="brand-header">
-      <div class="brand-header-inner">
-        <div class="brand-logo-wrap">
-          <img id="brandLogo" class="brand-logo" src="logo.png" alt="לוגו" />
-        </div>
+  <div class="phone-page">
+    <header class="top-header">
+      <div class="hamburger" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 
-        <div class="brand-title">
-          <h1>סקר חידוש חוזה</h1>
-          <p>מערכת לניהול שוכרים - בדיקת חוויית משתמש</p>
-        </div>
+      <div class="brand">
+        <img class="brand-logo" src="data:image/png;base64,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" alt="YoSeF" />
+        <div class="brand-sub">מערכת לניהול שוכרים</div>
       </div>
     </header>
 
-    <main class="survey-card">
-      <section class="survey-card-body">
-        <div class="tenant-box">
-          <div><span class="label">שלום</span><span id="tenantName">שוכר/ת</span></div>
-          <div><span class="label">החוזה מסתיים בתאריך:</span><span id="contractEnd">לא צוין</span></div>
-          <div><span class="label">יחידה:</span><span id="unitInfo">לא צוינה</span></div>
-        </div>
+    <main class="content-wrap">
+      <section class="outer-panel">
+        <section class="card">
+          <h1 class="title">שאלה קצרה לחידוש חוזה</h1>
+          <div class="sub-title">מערכת לניהול שוכרים</div>
 
-        <p class="question">האם תרצה/י להמשיך לשנה נוספת?</p>
+          <div class="divider-line" aria-hidden="true">
+            <div class="mini-house">⌂</div>
+          </div>
 
-        <p class="subtitle">
-          נשמח אם תבחר/י את האפשרות המתאימה ביותר עבורך.
-        </p>
+          <p class="one-question">רק שאלה אחת קצרה כדי לדעת אם ברצונך להמשיך</p>
 
-        <div class="actions" id="actions">
-          <button type="button" class="answer-button answer-yes" onclick="chooseAnswer('yes')">
-            ✅ ממשיך/ה
-            <small>מעוניין/ת להמשיך לשנה נוספת</small>
-          </button>
+          <div class="section-separator"></div>
 
-          <button type="button" class="answer-button answer-no" onclick="chooseAnswer('no')">
-            ❌ לא ממשיך/ה
-            <small>אינני מעוניין/ת להמשיך לשנה נוספת</small>
-          </button>
+          <h2 class="question">האם תרצה/י לחדש את החוזה לשנה נוספת?</h2>
 
-          <button type="button" class="answer-button answer-later" onclick="chooseAnswer('later')">
-            ⏳ אחליט בקרוב
-            <small>עדיין לא קיבלתי החלטה סופית</small>
-          </button>
-        </div>
+          <div class="actions" id="actions">
+            <button class="action-btn" type="button" onclick="chooseAnswer('no')">
+              <div class="icon">✕</div>
+              <div class="btn-main">לא</div>
+              <div class="btn-sub">לא מעוניין לחדש</div>
+            </button>
 
-        <div id="resultBox" class="result"></div>
+            <button class="action-btn action-later" type="button" onclick="chooseAnswer('later')">
+              <div class="icon" style="height:58px; display:flex; align-items:center; justify-content:center; margin-bottom:13px;">
+                <svg width="46" height="58" viewBox="0 0 64 80" aria-hidden="true"
+                     style="display:block; color:#ffffff; overflow:visible; filter:drop-shadow(0 3px 4px rgba(0,34,90,0.28));">
+                  <rect x="13" y="3" width="38" height="7" rx="3.5" fill="currentColor"></rect>
+                  <rect x="13" y="70" width="38" height="7" rx="3.5" fill="currentColor"></rect>
+                  <path d="M20 12 C20 26 28 32 32 39 C36 32 44 26 44 12"
+                        fill="none" stroke="currentColor" stroke-width="6"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M20 68 C20 54 28 48 32 41 C36 48 44 54 44 68"
+                        fill="none" stroke="currentColor" stroke-width="6"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M25 23 H39 L32 35 Z" fill="currentColor"></path>
+                  <path d="M25 62 H39 L32 49 Z" fill="currentColor"></path>
+                  <circle cx="32" cy="40" r="2.3" fill="currentColor"></circle>
+                </svg>
+              </div>
+              <div class="btn-main">אחליט<br>בהמשך</div>
+              <div class="btn-sub">צריך עוד זמן לחשוב</div>
+            </button>
 
-        <div class="footer-note">
-          בשלב זה מדובר בדף הדגמה לצורך בחינת חוויית המשתמש.
-          <div class="project-signature">מערכת לניהול שוכרים</div>
-        </div>
+            <button class="action-btn" type="button" onclick="chooseAnswer('yes')">
+              <div class="icon">✓</div>
+              <div class="btn-main">כן</div>
+              <div class="btn-sub">מעוניין לחדש</div>
+            </button>
+          </div>
+
+          <div class="thanks">
+            <span class="heart">♡</span>
+            <span>תודה על שיתוף הפעולה</span>
+          </div>
+
+          <div id="resultBox" class="result"></div>
+        </section>
+
+        <div class="footer">© כל הזכויות שמורות למערכת YoSeF לניהול שוכרים</div>
       </section>
     </main>
   </div>
 
-            <script>
+  <script>
     const RENEWAL_SUPABASE_URL = "https://erhfqlcfwjqehffxetbv.supabase.co";
     const RENEWAL_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyaGZxbGNmd2pxZWhmZnhldGJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1OTU4OTAsImV4cCI6MjA5NjE3MTg5MH0.Cq0tiB4NP17E5O_cB4dPNmFk_dl7FYxwQq75p4tlOZc";
-
-    const DEMO_RENEWAL_TOKENS = {
-      "demo1": {
-        token: "demo1",
-        tenant_name: "יוסי כהן",
-        contract_end_date: "31/12/2026",
-        building: "1",
-        apartment: "4",
-        room: "2"
-      },
-      "demo2": {
-        token: "demo2",
-        tenant_name: "נועם יוסף",
-        contract_end_date: "15/01/2027",
-        building: "17/1",
-        apartment: "4",
-        room: "2"
-      }
-    };
-
-    let currentRenewalRecord = null;
 
     function getParam(name, fallback) {
       const params = new URLSearchParams(window.location.search);
       return params.get(name) || fallback;
-    }
-
-    function setText(id, value) {
-      const el = document.getElementById(id);
-      if (el) el.textContent = value;
-    }
-
-    function normalizeRenewalRecord(record) {
-      return {
-        token: (record && record.token) || "",
-        name: (record && (record.tenant_name || record.name)) || "שוכר/ת",
-        end: (record && (record.contract_end_date || record.end)) || "לא צוין",
-        building: (record && record.building) || "",
-        apartment: (record && record.apartment) || "",
-        room: (record && record.room) || "",
-        answer: (record && record.answer) || ""
-      };
-    }
-
-    async function fetchRenewalRecordFromSupabase(token) {
-      const url = RENEWAL_SUPABASE_URL + "/rest/v1/contract_renewal_responses?select=*&token=eq." + encodeURIComponent(token) + "&limit=1";
-
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "apikey": RENEWAL_SUPABASE_ANON_KEY,
-          "Authorization": "Bearer " + RENEWAL_SUPABASE_ANON_KEY
-        }
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text().catch(function() { return ""; });
-        throw new Error("Supabase read failed: " + response.status + " " + errorText);
-      }
-
-      const rows = await response.json();
-      return Array.isArray(rows) && rows.length ? rows[0] : null;
-    }
-
-    async function getRenewalSurveyData() {
-      const token = getParam("t", "").trim();
-
-      if (token && DEMO_RENEWAL_TOKENS[token]) {
-        return normalizeRenewalRecord(DEMO_RENEWAL_TOKENS[token]);
-      }
-
-      if (token) {
-        const record = await fetchRenewalRecordFromSupabase(token);
-        if (record) return normalizeRenewalRecord(record);
-      }
-
-      return {
-        token: "",
-        name: getParam("name", "שוכר/ת"),
-        end: getParam("end", "לא צוין"),
-        building: getParam("building", ""),
-        apartment: getParam("apartment", ""),
-        room: getParam("room", ""),
-        answer: ""
-      };
-    }
-
-    function renderRenewalData(data) {
-      currentRenewalRecord = data;
-
-      const unitParts = [];
-      if (data.building) unitParts.push("בניין " + data.building);
-      if (data.apartment) unitParts.push("דירה " + data.apartment);
-      if (data.room) unitParts.push("חדר " + data.room);
-
-      setText("tenantName", data.name || "שוכר/ת");
-      setText("contractEnd", data.end || "לא צוין");
-      setText("unitInfo", unitParts.length ? unitParts.join(" | ") : "לא צוינה");
-    }
-
-    function showLoadError(message) {
-      setText("tenantName", "שוכר/ת");
-      setText("contractEnd", "לא צוין");
-      setText("unitInfo", "לא צוינה");
-
-      const resultBox = document.getElementById("resultBox");
-      if (resultBox) {
-        resultBox.className = "result show no-result";
-        resultBox.innerHTML = message || "לא הצלחנו לטעון את פרטי הבקשה.";
-      }
-    }
-
-    async function initPage() {
-      try {
-        setText("tenantName", "טוען...");
-        setText("contractEnd", "טוען...");
-        setText("unitInfo", "טוען...");
-
-        const data = await getRenewalSurveyData();
-        renderRenewalData(data);
-
-        const logo = document.getElementById("brandLogo");
-        if (logo) {
-          logo.addEventListener("error", function() {
-            logo.classList.add("is-hidden");
-          });
-        }
-      } catch (error) {
-        console.error(error);
-        showLoadError("לא הצלחנו לטעון את פרטי הבקשה. נא לפנות לנועם.");
-      }
     }
 
     function getAnswerLabel(answer) {
@@ -715,6 +587,13 @@
       const token = getParam("t", "").trim();
 
       if (!token || token === "demo1" || token === "demo2") {
+        localStorage.setItem("renewalDemoLastAnswer", JSON.stringify({
+          answer: answer,
+          answerLabel: getAnswerLabel(answer),
+          answeredAt: new Date().toISOString(),
+          pageUrl: window.location.href,
+          token: token
+        }));
         return;
       }
 
@@ -743,7 +622,10 @@
       const resultBox = document.getElementById("resultBox");
       const actions = document.getElementById("actions");
 
-      if (actions) actions.style.display = "none";
+      if (actions) {
+        actions.style.pointerEvents = "none";
+        actions.style.opacity = "0.65";
+      }
 
       try {
         await saveRenewalAnswerToSupabase(answer);
@@ -764,33 +646,18 @@
           resultBox.classList.add("later-result");
           resultBox.innerHTML = "תודה רבה.<br>סימנת שתחליט/י בקרוב.";
         }
-
-        localStorage.setItem("renewalDemoLastAnswer", JSON.stringify({
-          answer: answer,
-          answerLabel: getAnswerLabel(answer),
-          answeredAt: new Date().toISOString(),
-          pageUrl: window.location.href,
-          token: getParam("t", "")
-        }));
       } catch (error) {
         console.error(error);
 
         resultBox.className = "result show no-result";
         resultBox.innerHTML = "התשובה לא נשמרה. נא לנסות שוב או לפנות לנועם.";
 
-        if (actions) actions.style.display = "";
+        if (actions) {
+          actions.style.pointerEvents = "";
+          actions.style.opacity = "";
+        }
       }
     }
-
-    initPage();
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
